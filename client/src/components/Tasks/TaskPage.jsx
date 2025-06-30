@@ -1,64 +1,112 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom'
-import { FilePenLine, Trash2 } from 'lucide-react';
+import React, { useState } from "react";
+import {
+  Container,
+  Box,
+  Typography,
+  Button,
+  Paper,
+  Stack,
+  List,
+  ListItem,
+  ListItemText,
+  IconButton,
+  Dialog,
+} from "@mui/material";
+import { FilePenLine, Trash2 } from "lucide-react";
+
 // import AddTask from './AddTask';
 // import CreateTask from './CreateTask';
-import '../../styles/taskPage.css';
+import "../../styles/taskPage.css";
+import CreateTaskDialog from "./CreateTask";
 
 const TaskPage = () => {
-  const [noTask, setNoTask] = useState(true)
-  const [tasks, setTasks] = useState([
-    'Khaibi',
-    'Soibi'
-  ])
+  const [noTask, setNoTask] = useState(true);
+  const [tasks, setTasks] = useState([]);
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const handleEditTask = (index) => {
+    console.log("Edit task", index);
+  };
+
+  const handleDeleteTask = (index) => {
+    console.log("Delete task", index);
+  };
 
   return (
-    <div className="task-page ">
-      <main>
-        {noTask ? (
-          <div className='flex items-center justify-center'>
-          <div className="empty-state flex flex-row min-h-screen justify-center items-center ">
-            <img src="/media/images/woman-sigh.png" alt="No tasks" className='no-task-img object-contain img-fluid size-1/4' />
-            <p className='no-task text-2xl grid place-items-center gap-4'>No tasks available. Start by adding one!
-            <Link to='/create-task'  className="add-task-container items-center">
-                <button
-                  className="add-task-button py-2 px-4 rounded shadow-md flex-shrink-0"
-                >
-                  Add Task
-                </button>
-            </Link>
-            </p>
-          </div>
-            
-            </div>
+    <Container maxWidth="md" sx={{ mt: 6 }}>
+      <Box>
+        {tasks.length === 0 ? (
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="center"
+            spacing={4}
+            sx={{ minHeight: "70vh" }}
+          >
+            <Box
+              component="img"
+              src="/media/images/woman-sigh.png"
+              alt="No tasks"
+              sx={{ width: "25%", objectFit: "contain" }}
+            />
+            <Box>
+              <Typography variant="h5" gutterBottom>
+                No tasks available. Start by adding one!
+              </Typography>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => setOpenDialog(true)}
+              >
+                Add Task
+              </Button>
+            </Box>
+          </Stack>
         ) : (
           <>
-            <Link to='/create-task'>
-              <div className="add-task-container flex float-right mt-4 pr-10 items-center">
-                <button
-                  className="add-task-button py-2 px-4 rounded shadow-md flex-shrink-0"
-                >
-                  Add Task
-                </button>
-              </div>
-            </Link>
-            <ul className="task-list overflow-auto p-10 w-3/5">
-              {tasks.map((task) => (
-                <div className='flex flex-col p-4'>
-                  <li className="task-item flex flex-auto p-4 justify-between">
-                    <span>{task}</span>
-                    <div className='task-buttons flex flex-row'>
-                      <button onClick={() => handleEditTask(index)} className='mr-4'><FilePenLine /></button>
-                      <button onClick={() => handleDeleteTask(index)}><Trash2 /></button>
-                    </div>
-                  </li>
-                </div>
-              ))}
-            </ul>
+            <Box display="flex" justifyContent="flex-end" mb={2}>
+              <Button variant="contained" onClick={() => setOpenDialog(true)}>
+                Add Task
+              </Button>
+            </Box>
+
+            <Paper elevation={3}>
+              <List>
+                {tasks.map((task, index) => (
+                  <ListItem
+                    key={index}
+                    secondaryAction={
+                      <Box>
+                        <IconButton
+                          edge="end"
+                          onClick={() => handleEditTask(index)}
+                        >
+                          <FilePenLine size={20} />
+                        </IconButton>
+                        <IconButton
+                          edge="end"
+                          onClick={() => handleDeleteTask(index)}
+                        >
+                          <Trash2 size={20} />
+                        </IconButton>
+                      </Box>
+                    }
+                  >
+                    <ListItemText primary={task} />
+                  </ListItem>
+                ))}
+              </List>
+            </Paper>
           </>
         )}
-      </main>
-    </div>
+
+        {/* Dialog to add a new task */}
+        <CreateTaskDialog
+          open={openDialog}
+          onClose={() => setOpenDialog(false)}
+        />
+      </Box>
+    </Container>
   );
 };
 

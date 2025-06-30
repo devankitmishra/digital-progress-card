@@ -1,34 +1,47 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "../../styles/createTask.css";
+import {
+  Box,
+  Typography,
+  TextField,
+  MenuItem,
+  Button,
+  Grid,
+  Select,
+  InputLabel,
+  FormControl,
+  Alert,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  IconButton,
+} from "@mui/material";
 import { createTask } from "../../services/api";
 import useAuth from "../Auth/useAuth";
 
-function CreateTask() {
-  const {user} =useAuth();
+function CreateTaskDialog({ open, onClose }) {
+  const { user } = useAuth();
   const [taskName, setTaskName] = useState("");
   const [target, setTarget] = useState("");
   const [unit, setUnit] = useState("select");
   const [rewards, setRewards] = useState([]);
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   const handleTaskSubmit = async (e) => {
     e.preventDefault();
 
     const taskData = {
-      userId:user.uid,
+      userId: user.uid,
       name: taskName,
       target: target,
       unit: unit,
       rewards: rewards,
     };
-    console.log(taskData)
-    console.log("userId:", taskData.userId,"name:", taskData.name,"target:", taskData.target,"unit:", taskData.unit,"rewards:", taskData.rewards);
+
     try {
       const response = await createTask(taskData);
       console.log("Task created:", response);
-      navigate('/');
+      onClose(); // Close dialog on success
     } catch (err) {
       setError("Failed to create task");
       console.error("Error creating task:", err);
@@ -52,102 +65,160 @@ function CreateTask() {
     }
   };
 
+  const handleClose = () => {
+    setTaskName("");
+    setTarget("");
+    setUnit("select");
+    setRewards([]);
+    setError("");
+    onClose();
+  };
+
   return (
-    <div className="create-task-wrapper">
-    <div className="container shadow-lg rounded-lg">
-      <div className="main-section">
-        <div className="section-label">
-          <h3>Create Task</h3>
-        </div>
-      <form onSubmit={handleTaskSubmit}>
-      <div className="task-input-name">
-          <label htmlFor="task-name">Task</label>
-          <input 
-          type="text" 
-          id="task-name" 
-          placeholder="Task Name" 
-          value={taskName}
-          onChange={(e)=> setTaskName(e.target.value)}
-          required />
-        </div>
-
-        <div className="task-input-field">
-          <div className="target-input">
-            <label htmlFor="task-target">Target</label>
-            <input
-              type="number"
-              id="task-target"
-              placeholder="Like 1,2,3..."
-              value={target}
-              onChange={handleTargetChange}
-              required
-            />
-          </div>
-          <div className="unit-input">
-            <label htmlFor="task-unit">Unit</label>
-            <select 
-            id="task-unit" 
-            name="task-unit" 
-            value={unit}
-            onChange={(e)=>setUnit(e.target.value)}
-            required>
-              <option value="select">Select</option>
-              <option value="kg">Kilogram (kg)</option>
-              <option value="g">Gram (g)</option>
-              <option value="lb">Pound (lb)</option>
-              <option value="hr">Hour (hr)</option>
-              <option value="time">time</option>
-              <option value="min">Minutes (min)</option>
-            </select>
-          </div>
-          <button className="btn add-reward-btn rounded-md" type="button" onClick={addReward}>
-            Add Reward
-          </button>
-        </div>
-        <div id="reward-container">
-          {rewards.map((reward, index) => (
-            <div className="reward-input-field" key={index}>
-              <select
-                value={reward.unit}
-                onChange={(e) => handleRewardChange(index, 'unit', e.target.value)}
-                name="task-unit"
-              >
-                <option value="select">Select</option>
-                <option value="10%">10%</option>
-                <option value="20%">20%</option>
-                <option value="30%">30%</option>
-                <option value="40%">40%</option>
-                <option value="50%">50%</option>
-                <option value="60%">60%</option>
-                <option value="70%">70%</option>
-                <option value="80%">80%</option>
-                <option value="90%">90%</option>
-                <option value="100%">100%</option>
-              </select>
-              <input
-                type="text"
-                placeholder="Reward Name"
-                value={reward.name}
-                onChange={(e) => handleRewardChange(index, 'name', e.target.value)}
+    <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
+      <DialogTitle
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        Create Task
+        {/* <IconButton onClick={handleClose} size="small">
+          <CloseIcon />
+        </IconButton> */}
+      </DialogTitle>
+      <DialogContent dividers>
+        <Box component="form" onSubmit={handleTaskSubmit} noValidate>
+          <Grid container spacing={2}>
+            <Grid size={{xs:12}}>
+              <TextField
+                label="Task Name"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                value={taskName}
+                onChange={(e) => setTaskName(e.target.value)}
+                required
               />
-            </div>
-          ))}
-        </div>
+            </Grid>
 
-        {/* <div className="additional-input">
-          <textarea className="comment-input" placeholder="Enter your comment"></textarea>
-          <input type="file" className="image-input" accept="image/*" />
-        </div> */}
-        <div className="task-btn-wrapper flex flex-row justify-evenly m-auto gap-4">
-            <button className="btn cancel-task-btn rounded-md" type="button" onClick={()=> navigate('/')}>Cancel</button>
-            <button className="btn create-task-btn rounded-md" type="submit">Create Task</button>
-        </div>
-      </form>
-        {error && <div className="error">{error}</div>}
-      </div>
-    </div>
-    </div>
+            <Grid size={{xs:12, sm:6}}>
+              <TextField
+                label="Target"
+                type="number"
+                fullWidth
+                variant="outlined"
+                value={target}
+                onChange={handleTargetChange}
+                required
+              />
+            </Grid>
+            <Grid size={{xs:12, sm:6}}>
+              <FormControl fullWidth>
+                <InputLabel>Unit</InputLabel>
+                <Select
+                  value={unit}
+                  label="Unit"
+                  onChange={(e) => setUnit(e.target.value)}
+                  required
+                >
+                  <MenuItem value="select">Select</MenuItem>
+                  <MenuItem value="kg">Kilogram (kg)</MenuItem>
+                  <MenuItem value="g">Gram (g)</MenuItem>
+                  <MenuItem value="lb">Pound (lb)</MenuItem>
+                  <MenuItem value="hr">Hour (hr)</MenuItem>
+                  <MenuItem value="time">Time</MenuItem>
+                  <MenuItem value="min">Minutes (min)</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
+
+          <Box textAlign="right" mt={2}>
+            <Button variant="outlined" onClick={addReward}>
+              Add Reward
+            </Button>
+          </Box>
+
+          <Box mt={2}>
+            {rewards.map((reward, index) => (
+              <Grid container spacing={2} key={index} sx={{ mb: 2 }}>
+                <Grid size={{xs:6}}>
+                  <FormControl fullWidth>
+                    <InputLabel>Percentage</InputLabel>
+                    <Select
+                      value={reward.unit}
+                      label="Percentage"
+                      size="small"
+                      onChange={(e) =>
+                        handleRewardChange(index, "unit", e.target.value)
+                      }
+                    >
+                      <MenuItem value="select">Select</MenuItem>
+                      {[
+                        "10%",
+                        "20%",
+                        "30%",
+                        "40%",
+                        "50%",
+                        "60%",
+                        "70%",
+                        "80%",
+                        "90%",
+                        "100%",
+                      ].map((value) => (
+                        <MenuItem key={value} value={value}>
+                          {value}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid size={{xs:6}}>
+                  <TextField
+                    placeholder="Reward Name"
+                    fullWidth
+                    size="small"
+                    value={reward.name}
+                    onChange={(e) =>
+                      handleRewardChange(index, "name", e.target.value)
+                    }
+                  />
+                </Grid>
+              </Grid>
+            ))}
+          </Box>
+
+          {error && (
+            <Alert severity="error" sx={{ my: 2 }}>
+              {error}
+            </Alert>
+          )}
+        </Box>
+      </DialogContent>
+      <DialogActions sx={{ px: 3, pb: 2 }}>
+        <Box display="flex" width="100%" gap={2}>
+          <Button
+            onClick={handleClose}
+            color="primary"
+            variant="outlined"
+            fullWidth
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleTaskSubmit}
+            color="primary"
+            variant="contained"
+            fullWidth
+          >
+            Create Task
+          </Button>
+        </Box>
+      </DialogActions>
+    </Dialog>
   );
 }
 
-export default CreateTask;
+export default CreateTaskDialog;
