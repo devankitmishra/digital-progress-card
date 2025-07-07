@@ -95,6 +95,7 @@ const Profile = () => {
   const confirmPasswordReset = () => {
     const isConfirmed = window.confirm("Are you sure you want to reset your password?");
     if (isConfirmed) {
+      console.log("reset email:",email);
       handlePasswordReset();
     }
   };
