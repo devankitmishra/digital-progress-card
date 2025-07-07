@@ -7,6 +7,7 @@ import {
     GoogleAuthProvider, 
     sendPasswordResetEmail, 
     signOut, 
+    updateProfile,
     sendEmailVerification } from 'firebase/auth';
 import { auth, db } from '../../../firebaseConfig';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
