@@ -97,6 +97,10 @@ const handleEmailRegister = async (e) => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const newUser = userCredential.user;
       
+      await updateProfile(newUser, {
+        displayName: fullName,
+      });
+      
       await sendEmailVerification(newUser);
       alert('Account created! A verification email has been sent. Please verify before logging in.');
       await signOut(auth);
