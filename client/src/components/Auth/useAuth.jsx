@@ -7,6 +7,7 @@ import {
     GoogleAuthProvider, 
     sendPasswordResetEmail, 
     signOut, 
+    updateProfile,
     sendEmailVerification } from 'firebase/auth';
 import { auth, db } from '../../../firebaseConfig';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
@@ -24,8 +25,12 @@ const useAuth = () => {
 useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
         if(currentUser){
+          console.log("curr user:",currentUser)
             setUser(currentUser);
             saveUserData(currentUser);
+            setEmail(currentUser.email);
+            setPhone(currentUser.phoneNumber);
+            setFullName(currentUser.displayName);
         }
     });
     return () => unsubscribe(); // Cleanup on unmount
@@ -47,6 +52,7 @@ useEffect(() => {
         phone: existingData.phone || user.phoneNumber || "Not Provided",
       },{ merge:true });
       console.log("User data saved successfully");
+
     } catch (err) {
       console.error("Error saving user data:", err);
     }
@@ -92,6 +98,10 @@ const handleEmailRegister = async (e) => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const newUser = userCredential.user;
       
+      await updateProfile(newUser, {
+        displayName: fullName,
+      });
+      
       await sendEmailVerification(newUser);
       alert('Account created! A verification email has been sent. Please verify before logging in.');
       await signOut(auth);
@@ -104,12 +114,15 @@ const handleEmailRegister = async (e) => {
   };
 //   Handles Password Reset 
   const handlePasswordReset = async () => {
-    if (!email) {
+    console.log("reset email attempt from useAuth:", user?.email);
+    const resetEmail = user?.email || email;
+    console.log("useauth reset email:",resetEmail);
+    if (!resetEmail) {
       alert('Please enter your email first!');
       return;
     }
     try {
-      await sendPasswordResetEmail(auth, email);
+      await sendPasswordResetEmail(auth, resetEmail);
       alert('Password reset email sent! Check your inbox!');
     } catch (err) {
       setError(err.message);
