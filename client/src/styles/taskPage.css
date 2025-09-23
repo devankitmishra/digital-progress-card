@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&family=Roboto:wght@100;300;400;500;700;900&family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* AddTask */
+.add-task-container {
+  font-family: var(--third-font);
+}
+
+.add-task-input {
+  font-family: var(--secondary-font);
+}
+
+.add-task-button {
+  background-color: var(--primary-color);
+  color: var(--light-text);
+}
+
+/* TaskPage */
+.task-page {
+  /* Add styles for the main container */
+}
+
+.no-task {
+  font-family: var(--third-font);
+}
+
+
+.task-item {
+  font-family: var(--secondary-font);
+  font-size: 1.5em;
+  background-color: var(--primary-color);
+  color: var(--light-text);
+  border-radius: 4px;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.18),
+    0px 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+.task-buttons{
+  width: max-content;
+}
+

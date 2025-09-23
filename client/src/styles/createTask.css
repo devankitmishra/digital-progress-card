@@ -1,0 +1,166 @@
+.create-task-wrapper{
+    position: relative;
+    height: calc(100vh - 3rem);
+    width: 100%;
+}
+.container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    margin: 1em auto;
+    max-width: 60%;
+    background-color: var(--accent-color);
+    max-height:max-content;
+}
+
+h3{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.main-section {
+    padding: 1.25em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 100%;
+}
+
+.section-label {
+    font-size: 1.5em;
+    font-weight: bold;
+    left: 0;
+    
+}
+.task-input-name{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.8em;
+}
+.task-input-name input{
+    padding: 1.25em;
+    border: solid 0.5px var(--secondry-color);
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.task-input-field {
+    display: flex;
+    flex-direction: row;
+    gap: 1.25em;
+    
+}
+.target-input{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    flex: 1;
+}
+.unit-input{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    flex: 1;
+}
+
+.task-input-field input,
+.task-input-field select {
+    padding: 1.25em;
+    border: solid 0.5px var(--secondry-color);
+    border-radius: 5px;
+    font-size: 1em;
+    height: 4em;
+}
+select option {
+    font-size: 1em;
+    padding: 0.5em;
+}
+
+.reward-input-field {
+    display: flex;
+    gap: 0.8em;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 0.5em;
+}
+
+.reward-input-field input,
+.reward-input-field select {
+    width: calc(50% - 0.5em);
+    padding: 0.5em;
+    border: solid 0.5px var(--secondry-color);
+    border-radius: 5px;
+}
+
+.btn {
+    background-color: var(--primary-color);
+    padding: 1em 2em;
+    border: none;
+    cursor: pointer;
+    color: var(--light-text);
+    transition: all ease 300ms;
+}
+.btn:hover{
+    background-color: var(--hover-color);
+}
+
+.add-reward-btn {
+    flex: 1;
+    margin-top: auto;
+    width: 100%;
+    height: 3.8em;
+
+}
+
+.task-btn-wrapper{
+    min-width: 30%;
+}
+
+.additional-input {
+    display: flex;
+    gap: 0.8em;
+    align-items: flex-start; 
+    width: 100%;
+    margin-bottom: 0.5em;
+}
+.additional-input input,
+.additional-input textarea {
+    padding: 1.25em;
+    border: solid 0.5px var(--secondry-color);
+    border-radius: 5px;
+    font-size: 1em;
+    flex: 1; 
+    box-sizing: border-box; 
+    height: 100%;
+}
+
+.comment-input {
+    flex: 1; 
+}
+
+.image-input {
+    flex: 1; 
+}
+
+input[type="file"].image-input {
+    border: 2px dotted var(--secondry-color); 
+}
+
+
+
+@media screen and (max-width:730px) {
+    .create-task-wrapper{
+        position: relative;
+        height: calc(100vh - 7rem);
+        width: 100%;
+    }
+    .task-input-field{
+        flex-direction: column;
+    }
+    .container {
+        max-width: none;
+    }
+  }
+

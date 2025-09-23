@@ -1,0 +1,47 @@
+/* Custom CSS for toggle switch */
+.toggle-checkbox:checked {
+    right: 0;
+    border-color: var(--hover-color); /* bg-gray-800 */
+  }
+  
+  .toggle-checkbox {
+    right: 0;
+    border-color: var(--hover-color); /* bg-gray-300 */
+  }
+  
+  .toggle-checkbox:checked + .toggle-label{
+    background-color: rgb(255, 255, 255); /* bg-gray-800 */
+  }
+  
+  .toggle-checkbox:checked + .toggle-label::before {
+    transform: translateX(1.25rem); /* Adjust according to the size of your switch */
+    background-color: black; /* bg-gray-800 */
+  }
+  
+  .toggle-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 9999px;
+    height: 1.25em;
+    width: 2.5rem;
+    background-color: yellow; /* bg-gray-300 */
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .toggle-label::before {
+    content: "";
+    display: block;
+    height: 1rem;
+    width: 1rem;
+    border-radius: 9999px;
+    /* background: var(--light-text); */
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.295);
+    transition: transform 0.2s ease-in-out;
+    background-color: rgb(255, 255, 255);
+  }
+  .toggle-label::after{
+    background: var(--light-text);
+  }
+  

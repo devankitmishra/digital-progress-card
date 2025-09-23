@@ -1,0 +1,256 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root{
+    --primary-color:#1A1A1A;
+    --accent-color:#fefefe;
+    --opt-color:#1b4332;
+    --hover-color:#5f5f5f;
+    --secondry-color:#1b4332;
+    --light-text: white;
+    --text-color: #000000 --primary-font: 'Rubik', sans-serif;
+    --secondary-font: 'Roboto', sans-serif;
+    --third-font: 'Ubuntu', sans-serif;
+    background-color: #fff;
+}
+/* .light{
+    --primary-color:#1A1A1A;
+    --text:black;
+    --accent-color:#fefefe;
+    --opt-color:#1b4332;
+    --hover-color:#5f5f5f;
+    --secondry-color:#1b4332;
+    --light-text: white;
+    --text-color: #000000 --primary-font: 'Rubik', sans-serif;
+    --secondary-font: 'Roboto', sans-serif;
+    --third-font: 'Ubuntu', sans-serif;
+    background: #fff;
+  
+}
+
+.dark{
+    --primary-color:#181C14;
+    --accent-color:#3C3D37;
+    --opt-color:#1b4332;
+    --hover-color:#697565;
+    --secondry-color:#1b4332;
+    --text:white;
+    --light-text: white;
+    --text-color: #000000 --primary-font: 'Rubik', sans-serif;
+    --secondary-font: 'Roboto', sans-serif;
+    --third-font: 'Ubuntu', sans-serif;
+    background: black;
+} */
+
+
+/* #blue{
+    --primary-color:blue;
+    --accent-color:#111b20;
+    --opt-color:#1b4332;
+    --hover-color:#5f5f5f;
+    --secondry-color:#1b4332;
+    --light-text: black;
+    --text-color: #000000 --primary-font: 'Rubik', sans-serif;
+    --secondary-font: 'Roboto', sans-serif;
+    --third-font: 'Ubuntu', sans-serif;
+}
+#green{
+    --primary-color:green;
+    --accent-color:#111b20;
+    --opt-color:#1b4332;
+    --hover-color:#5f5f5f;
+    --secondry-color:#1b4332;
+    --light-text: black;
+    --text-color: #000000 --primary-font: 'Rubik', sans-serif;
+    --secondary-font: 'Roboto', sans-serif;
+    --third-font: 'Ubuntu', sans-serif;
+}
+#red{
+    --primary-color:red;
+    --accent-color:#111b20;
+    --opt-color:#1b4332;
+    --hover-color:#5f5f5f;
+    --secondry-color:#1b4332;
+    --light-text: black;
+    --text-color: #000000 --primary-font: 'Rubik', sans-serif;
+    --secondary-font: 'Roboto', sans-serif;
+    --third-font: 'Ubuntu', sans-serif;
+}
+#yellow{
+    --primary-color:rgb(255, 230, 0);
+    --accent-color:#111b20;
+    --opt-color:#1b4332;
+    --hover-color:#5f5f5f;
+    --secondry-color:#1b4332;
+    --light-text: black;
+    --text-color: #000000 ;--primary-font: 'Rubik', sans-serif;
+    --secondary-font: 'Roboto', sans-serif;
+    --third-font: 'Ubuntu', sans-serif;
+}
+#purple{
+    --primary-color:purple;
+    --accent-color:#111b20;
+    --opt-color:#1b4332;
+    --hover-color:#5f5f5f;
+    --secondry-color:#1b4332;
+    --light-text: black;
+    --text-color: #000000 --primary-font: 'Rubik', sans-serif;
+    --secondary-font: 'Roboto', sans-serif;
+    --third-font: 'Ubuntu', sans-serif;
+} */
+
+.small{
+    font-size: 11px;
+}
+.medium{
+    font-size: 18px;
+}
+.large{
+    font-size: 24px;
+}
+.xlarge{
+    font-size: 32px;
+}
+.full-page{
+    min-height: calc(100vh - 3rem);
+}
+
+.logo-img{
+    height: 4rem;
+    width: 6rem;
+}
+/* .profile-pic-wrap{
+    display: block;
+} */
+/* .sidebar{
+    height: 100vh;
+
+    border-right: 1px black solid;
+    transition: transform 0.3s ease;
+    transform: translateX(-100%);
+} */
+.sidebar{
+    width: max-content;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: var(--primary-color);
+    transition: transform 0.3s ease;
+    transform: translateX(-100%);
+    z-index: 99;
+}
+.sidebar.open{
+    transform: translateX(0%);
+}
+.navActive{
+    background-color: var(--hover-color);
+}
+.sidebar-box{
+    width: 90%;
+}
+.side-bar-opt a{
+    width: 100%;
+    border: 1px grey solid;
+    transition: all ease 200ms;
+}
+.side-bar-opt a:hover{
+    background-color: var(--hover-color);
+}
+.add-tsk{
+    width: 80px;
+    background-color: var(--primary-color);
+    aspect-ratio: 1;
+    transition: all ease 300ms;
+    color: var(--light-text);
+}
+.add-tsk:hover{
+    background-color: var(--hover-color);
+}
+.header{
+    background-color: var(--primary-color);
+}
+.place-holder-stat{
+    position: relative;
+    height: 60vh;
+    margin: 2em 1em;
+    border: 2px solid var(--primary-color);
+    background-color: var(--accent-color);
+}
+.filter{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    outline: solid 1px var(--primary-color);
+    background-color: var(--primary-color);
+    color: var(--light-text);
+}
+.progress-form{
+    margin: 2em auto;
+    background-color: azure;
+    min-width: 30%;
+    display: grid;
+    gap: 5px;
+}
+.progress-form input{
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    padding: 0.5em;
+
+}
+.progress-form button{
+    padding: 0.25em 0.5em;
+    background-color: var(--primary-color);
+    color: var(--light-text);
+    transition: all ease 300ms;
+}
+.progress-form button:hover{
+    background-color: var(--hover-color);
+}
+.rewardProg{
+    display: grid;
+    place-items: center;
+    border: 2px solid var(--primary-color);
+    height: 60vh;
+    min-width: max-content;
+    background-color: var(--accent-color);
+}
+.reward{
+    display: grid;
+    place-items: center;
+    justify-content: center;
+    grid-auto-flow: column;
+    gap: 1em;
+}
+.reward-check{
+    width: 2em;
+    aspect-ratio: 1;
+    background-color: #dcdcdc;
+    border-radius: 100vw;
+}
+.reward h1{
+    font-size: 1em;
+}
+.rewardProg a{
+ color: var(--opt-color);
+}
+.ftr{
+    background-color: var(--primary-color);
+    color: var(--light-text);
+    position: relative;
+    left: 0;
+    bottom: 0;
+}
+.invalid-page{
+    gap: 2em;
+}
+.invalid-page h1{
+    font-size: 3em;
+}
+.invalid-page a{
+    color: var(--light-text);
+    padding: 0.25em 0.5em;
+    background-color: var(--primary-color);
+}
+.invalid-page a:hover{
+    background-color: var(--hover-color);
+}

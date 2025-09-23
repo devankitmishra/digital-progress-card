@@ -1,0 +1,16 @@
+.editAbout{
+    min-width: calc(100% - 1em);
+}
+p{
+    color: var(--text);
+}
+
+h1,h2,h3,label{
+    color: var(--text);
+}
+.ac-settings strong{
+    color: var(--text);
+}
+.blue-btn{
+    color: rgb(0, 110, 255) !important;
+}
